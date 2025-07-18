@@ -5,7 +5,7 @@ const lostSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    decription : {
+    description : {
         type : String,
         required : true
     },
@@ -13,18 +13,18 @@ const lostSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    dateFound : {
+    dateLost : {
         type : Date,
         required : true
     },
     tags : {
         type : [String],
-        defualt : []
+        default : []
     }
 }, {
     timestamps : true
 });
 
-const LostItem = mongoose.model('LostItem' , lostSchema);
+const Lostitem = mongoose.model('Lostitem' , lostSchema);
 
-export default LostItem;
+export default Lostitem;
