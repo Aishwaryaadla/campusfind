@@ -11,14 +11,23 @@ export const getAllItems = async (req, res) => {
 };
 
 export const addItem = async (req, res) => {
-    const lostitem = req.body;
+    
+    const { name, description, dateLost } = req.body;
 
-    if (!lostitem.name || !lostitem.description || !lostitem.imageUrl || !lostitem.dateLost) {
+    const image = req.file;
+
+    if (!name || !description || !dateLost || !image) {
         return res.status(400).json({ success: false, message: "Please fill all required fields" });
     }
 
     try {
-        const newitem = new Lostitem(lostitem);
+        const newitem = new Lostitem({
+            name,
+            description,
+            dateLost,
+            imageUrl: `/uploads/${image.filename}`
+        });
+        
         await newitem.save();
         res.status(201).json({ success: true, data: newitem });
     } catch (error) {

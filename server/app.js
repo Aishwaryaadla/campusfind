@@ -6,6 +6,8 @@ import lostitemsroute from './routes/lostitems.js';
 import founditemsroute from './routes/founditems.js';
 
 const app = express();
+app.use('/uploads', express.static('server/uploads'));
+
 
 dotenv.config();
 const PORT = process.env.PORT;

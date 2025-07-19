@@ -11,14 +11,20 @@ export const getAllFoundItems = async (req, res) => {
 };
 
 export const addFoundItem = async (req, res) => {
-    const item = req.body;
+    const { name, description, dateFound } = req.body;
+    const image = req.file;
 
-    if (!item.name || !item.description || !item.imageUrl || !item.dateFound) {
+    if (!name || !description || !dateFound || !image) {
         return res.status(400).json({ success: false, message: "Please fill all required fields" });
     }
 
     try {
-        const newItem = new Founditem(item);
+        const newItem = new Founditem({
+            name,
+            description,
+            dateFound,
+            imageUrl: `/uploads/${image.filename}`
+        });
         await newItem.save();
         res.status(201).json({ success: true, data: newItem });
     } catch (error) {
