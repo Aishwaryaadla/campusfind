@@ -1,15 +1,11 @@
-import {Route, Routes} from 'react-router-dom';
-import {Box,Button} from '@chakra-ui/react';
+import React from 'react';
 
-function App(){
+const App = () => {
   return (
-    <Box minH={"100vh"}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/lost" element ={<LostItem />} />
-      </Routes>
-    </Box>
-  );
+    <div>
+      App
+    </div>
+  )
 }
 
 export default App;
