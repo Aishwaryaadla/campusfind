@@ -7,6 +7,7 @@ import LostPage from './pages/LostPage';
 import toast from "react-hot-toast";
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import BrowseItemsPage from './pages/BrowseItemsPage';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path = '/about' element={<AboutPage/>}/>
         <Route path = '/login' element={<LoginPage/>}/>
         <Route path = '/signup' element={<SignupPage/>}/>
+        <Route path = '/browseitems' element={<BrowseItemsPage/>}/>
       </Routes>
     </div>
   )
