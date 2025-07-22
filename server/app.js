@@ -23,7 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'http://localhost:5174',
   credentials: true 
 }));
 
@@ -32,6 +32,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/lostitems",lostitemsroute);
 app.use("/api/founditems",founditemsroute);

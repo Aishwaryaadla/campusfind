@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+
 
 const LostPage = () => {
   const [formData, setFormData] = useState({
@@ -19,19 +21,39 @@ const LostPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const data = new FormData();
     for (const key in formData) {
       data.append(key, formData[key]);
     }
-
-    // Make API call here
-    console.log("Submitting Lost Item Report:", formData);
-
-    alert("🎉 Your report has been submitted!");
+  
+    try {
+      const response = await axios.post("http://localhost:4000/api/lostitems", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      console.log("Submitted successfully:", response.data);
+      alert("🎉 Your report has been submitted!");
+  
+      // Clear form
+      setFormData({
+        name: "",
+        description: "",
+        location: "",
+        dateLost: "",
+        rollNo: "",
+        image: null,
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ Failed to submit. Please try again.");
+    }
   };
+  
 
   return (
     <div className="min-h-screen bg-base-200 py-10 px-4 flex justify-center items-start">

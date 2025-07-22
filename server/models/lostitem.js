@@ -20,7 +20,9 @@ const lostSchema = new mongoose.Schema({
     tags : {
         type : [String],
         default : []
-    }
+    },
+    location: { type: String, required: true }, 
+    rollNo: { type: String, required: true },
 }, {
     timestamps : true
 });
