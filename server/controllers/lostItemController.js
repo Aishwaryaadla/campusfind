@@ -12,11 +12,11 @@ export const getAllItems = async (req, res) => {
 
 export const addItem = async (req, res) => {
     
-    const { name, description, dateLost, location,rollNo } = req.body;
+    const { name, description, dateLost, location, rollNo } = req.body;
 
     const image = req.file;
 
-    if (!name || !description || !dateLost || !image || !location || !rollNo) {
+    if (!name || !description || !dateLost || !location || !rollNo) {
         return res.status(400).json({ success: false, message: "Please fill all required fields" });
     }
 
@@ -25,7 +25,7 @@ export const addItem = async (req, res) => {
             name,
             description,
             dateLost,
-            imageUrl: `/uploads/${image.filename}`,
+            imageUrl: image ? `/uploads/${image.filename}` : null,
             location,
             rollNo,
         });

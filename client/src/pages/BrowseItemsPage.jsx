@@ -210,7 +210,7 @@ const BrowseItems = () => {
                 key={item._id}
                 title={item.name}
                 description={item.description}
-                image={`http://localhost:4000${item.imageUrl}`}
+                image={item.imageUrl ? `http://localhost:4000${item.imageUrl}` : null}
               >
                 <div
                   className={`badge ${

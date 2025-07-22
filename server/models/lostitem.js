@@ -11,7 +11,7 @@ const lostSchema = new mongoose.Schema({
     },
     imageUrl : {
         type : String,
-        required : true
+        required : false
     },
     dateLost : {
         type : Date,
