@@ -1,12 +1,31 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import {connectDB} from './config/db.js';
+import cors from 'cors';
+import path from 'path';
+
 
 import lostitemsroute from './routes/lostitems.js';
 import founditemsroute from './routes/founditems.js';
 
 const app = express();
-app.use('/uploads', express.static('server/uploads'));
+
+
+// app.use('/uploads', express.static('server/uploads'));
+
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true 
+}));
 
 
 dotenv.config();
