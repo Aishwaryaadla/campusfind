@@ -11,10 +11,10 @@ export const getAllFoundItems = async (req, res) => {
 };
 
 export const addFoundItem = async (req, res) => {
-    const { name, description, dateFound } = req.body;
+    const { name, description, dateFound, location , rollNo } = req.body;
     const image = req.file;
 
-    if (!name || !description || !dateFound || !image) {
+    if (!name || !description || !dateFound || !image || !location || !rollNo) {
         return res.status(400).json({ success: false, message: "Please fill all required fields" });
     }
 
@@ -23,7 +23,9 @@ export const addFoundItem = async (req, res) => {
             name,
             description,
             dateFound,
-            imageUrl: `/uploads/${image.filename}`
+            imageUrl: `/uploads/${image.filename}`,
+            location,
+            rollNo
         });
         await newItem.save();
         res.status(201).json({ success: true, data: newItem });

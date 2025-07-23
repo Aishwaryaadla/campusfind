@@ -152,7 +152,8 @@
 
 
 import React, { useEffect, useState } from "react";
-import Card from "../components/ui/Card"; 
+// import Card from "../components/ui/Card"; 
+import ItemCard from "../components/ui/ItemCard";
 
 const BrowseItems = () => {
   const [items, setItems] = useState([]);
@@ -206,7 +207,7 @@ const BrowseItems = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {items.map((item) => (
-              <Card
+              <ItemCard
                 key={item._id}
                 title={item.name}
                 description={item.description}
@@ -219,7 +220,7 @@ const BrowseItems = () => {
                 >
                   {item.type === "lost" ? "Lost Item" : "Found Item"}
                 </div>
-              </Card>
+              </ItemCard>
             ))}
           </div>
         )}

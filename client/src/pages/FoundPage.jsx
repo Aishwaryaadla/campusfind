@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 
 const FoundPage = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +9,8 @@ const FoundPage = () => {
     dateFound: "",
     tags: "",
     image: null,
+    location : "",
+    rollNo : ""
   });
 
   const handleChange = (e) => {
@@ -17,18 +21,35 @@ const FoundPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Found item submitted:", formData);
-    // Reset form
-    setFormData({
-      name: "",
-      description: "",
-      dateFound: "",
-      tags: "",
-      image: null,
-    });
-    e.target.reset();
+    const data = new FormData();
+    for (const key in formData) {
+      data.append(key, formData[key]);
+    }
+
+    try {
+      const response = await axios.post("http://localhost:4000/api/founditems", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Submitted successfully:", response.data);
+      alert("🎉 Your found item has been reported!");
+      
+      setFormData({
+        name: "",
+        description: "",
+        location: "",
+        dateFound: "",
+        rollNo: "",
+        image: null,
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ Submission failed. Please try again.");
+    }
   };
 
   return (
@@ -67,8 +88,8 @@ const FoundPage = () => {
             </label>
             <input
               type="text"
-              name="foundLocation"
-              value={formData.foundLocation}
+              name="location"
+              value={formData.location}
               onChange={handleChange}
               className="input input-bordered w-full"
               placeholder="E.g., Library 1st floor"

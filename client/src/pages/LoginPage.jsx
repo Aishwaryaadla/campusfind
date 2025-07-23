@@ -27,7 +27,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="card w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="card w-full max-w-sm shadow-2xl bg-white">
         <div className="card-body">
           <h2 className="text-2xl font-bold text-center mb-2">
             {isAdmin ? "Admin Login" : "User Login"}
