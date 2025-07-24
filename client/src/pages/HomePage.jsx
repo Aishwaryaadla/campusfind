@@ -4,7 +4,8 @@ import RateLimit from '../components/RateLimit'
 import { useState } from 'react'
 import HeroSection from '../components/HeroSection'
 import Footer from '../components/Footer'
-// import RecentItems from '../components/RecentItems'
+import HowItWorks from '../components/HowItWorks'
+import PopularCategories from '../components/PopularCategories'
 
 
 
@@ -19,7 +20,8 @@ const HomePage = () => {
 
       <main>
         <HeroSection />
-        {/* <RecentItems /> */}
+        {<HowItWorks />}
+        {<PopularCategories />}
       </main>
 
       <Footer />      
