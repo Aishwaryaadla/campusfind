@@ -1,7 +1,10 @@
-import React from 'react'
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link,useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     rollNo: "",
@@ -16,26 +19,35 @@ const SignupPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-
-    console.log("Signup Data:", formData);
-    alert("Signup successful");
-
-    setFormData({
-      name: "",
-      rollNo: "",
-      password: "",
-      confirmPassword: "",
-      branch: "",
-      year: "",
-    });
+  
+    try {
+      const res = await axios.post("http://localhost:4000/api/auth/signup", {
+        name: formData.name,
+        rollNo: formData.rollNo,
+        password: formData.password,
+        branch: formData.branch,
+        year: formData.year,
+        role: "user", // ✅ ensure this is included
+      });
+  
+      console.log("Response:", res.data);
+      alert(res.data.message);
+      navigate("/login");
+  
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert(error.response?.data?.message || "Signup failed");
+    }
   };
+    
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
@@ -91,10 +103,10 @@ const SignupPage = () => {
           required
         >
           <option value="">Select Year</option>
-          <option>1st Year</option>
-          <option>2nd Year</option>
-          <option>3rd Year</option>
-          <option>4th Year</option>
+          <option>1st</option>
+          <option>2nd</option>
+          <option>3rd</option>
+          <option>4th</option>
         </select>
 
         <input
@@ -120,7 +132,13 @@ const SignupPage = () => {
         <button type="submit" className="btn btn-primary w-full">
           Sign Up
         </button>
+
+        <h3 className='text-center'>Already Have An Account ? </h3>
+        <Link to={"/login"} className='btn align-middle w-full bg-white sticky'> <span>Log In</span>
+        </Link>
       </form>
+
+      
     </div>
   )
 }

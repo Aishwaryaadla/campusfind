@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 const signUpController = async (req, res) => {
     try {
-      const { name, rollNo, password, branch, year } = req.body;
+      const { name, rollNo, password, branch, year,role } = req.body;
   
       // Check if user already exists
       const existingUser = await User.findOne({ rollNo });
@@ -22,6 +22,7 @@ const signUpController = async (req, res) => {
         password: hashedPassword,
         branch,
         year,
+        role,
       });
   
       await newUser.save();
