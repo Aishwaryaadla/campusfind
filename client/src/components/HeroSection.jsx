@@ -50,7 +50,7 @@ const HeroSection = () => {
                 </div>
                 <h3 className="text-xl font-semibold">I Found Something</h3>
                 <p className="text-muted-foreground">
-                Help return a found item to its rightful owner
+                Help return a found item to its rightful owner by connecting to them
                 </p>
                 <div className="w-full">
                   <div className="btn btn-outline w-full flex justify-center items-center gap-2">
