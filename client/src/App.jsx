@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import BrowseItemsPage from './pages/BrowseItemsPage';
+import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
 
 
 const App = () => {
@@ -21,6 +23,8 @@ const App = () => {
         <Route path = '/login' element={<LoginPage/>}/>
         <Route path = '/signup' element={<SignupPage/>}/>
         <Route path = '/browseitems' element={<BrowseItemsPage/>}/>
+        <Route path=  '/admin/dashboard' element={<AdminDashboard />} />
+        <Route path= '/user/dashboard' element={<UserDashboard />} />
       </Routes>
     </div>
   )

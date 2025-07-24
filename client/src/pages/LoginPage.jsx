@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [formData, setFormData] = useState({
     rollNo: "",
     password: "",
-    adminId: ""
+    adminId:""
   });
 
   const handleChange = (e) => {
@@ -16,14 +18,49 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isAdmin) {
-      console.log("Admin Login:", formData.adminId, formData.password);
-    } else {
-      console.log("User Login:", formData.rollNo, formData.password);
+  
+    try {
+      const payload = isAdmin
+        ? { adminId: formData.adminId, password: formData.password }
+        : { rollNo: formData.rollNo, password: formData.password };
+
+      const url = isAdmin
+        ? "http://localhost:4000/api/admin/login"
+        : "http://localhost:4000/api/auth/login";
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert(data.message || "Login Successful");
+        localStorage.setItem("user", JSON.stringify(data.user  || { role: "admin" }));
+        setFormData({
+          rollNo: "",
+          password: "",
+          adminId: ""
+        });        
+        navigate(isAdmin ? "/admin/dashboard" : "/user/dashboard");
+        // You can optionally store user data
+        // localStorage.setItem("user", JSON.stringify(data.user));
+      } else {
+        alert(data.message || "Login Failed");
+      }
+  
+    } catch (err) {
+      console.error("Login Error:", err);
+      alert("Something went wrong");
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
