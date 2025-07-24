@@ -8,6 +8,7 @@ import path from 'path';
 import lostitemsroute from './routes/lostitems.js';
 import founditemsroute from './routes/founditems.js';
 import authRoutes from './routes/auth.js';
+import adminRoute from './routes/admin.js';
 
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/lostitems",lostitemsroute);
 app.use("/api/founditems",founditemsroute);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoute);
 
 app.listen(PORT, () => {
     connectDB();
