@@ -1,14 +1,21 @@
 import mongoose from 'mongoose';
 import Lostitem from '../models/lostitem.js';
 
+// Update your getAllItems function
 export const getAllItems = async (req, res) => {
     try {
-        const items = await Lostitem.find({});
+        const searchQuery = req.query.search || '';
+        
+        const items = await Lostitem.find({
+            name: { $regex: searchQuery, $options: 'i' }  // case-insensitive search on item name
+        });
+
         res.status(200).json({ success: true, data: items });
     } catch (error) {
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
+
 
 export const addItem = async (req, res) => {
     
