@@ -1,5 +1,6 @@
 import { Smartphone, Backpack, Key, Headphones, Book, Umbrella, Watch, Glasses } from 'lucide-react';
 import Card from './ui/Card';
+import { Link } from 'react-router'
 
 const PopularCategories = () => {
   const categories = [
@@ -38,7 +39,9 @@ const PopularCategories = () => {
       </div>
 
       <div className="text-center mt-10">
-        <button className="btn btn-outline btn-black">Browse All Categories</button>
+        <Link to= '/browseitems' className="btn btn-outline btn-black">
+          <span>Browse All Items</span>
+        </Link>
       </div>
     </section>
   );
