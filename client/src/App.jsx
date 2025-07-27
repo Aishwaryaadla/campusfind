@@ -10,7 +10,7 @@ import SignupPage from './pages/SignupPage';
 import BrowseItemsPage from './pages/BrowseItemsPage';
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
-
+import ItemDetail from './pages/ItemDetail';
 
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
         <Route path = '/browseitems' element={<BrowseItemsPage/>}/>
         <Route path=  '/admin/dashboard' element={<AdminDashboard />} />
         <Route path= '/user/dashboard' element={<UserDashboard />} />
+        <Route path = '/item/:id' element={<ItemDetail />} />
       </Routes>
     </div>
   )

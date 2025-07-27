@@ -212,6 +212,7 @@ const BrowseItems = () => {
                 title={item.name}
                 description={item.description}
                 image={item.imageUrl ? `http://localhost:4000${item.imageUrl}` : null}
+                itemType={item.type}
               >
                 <div
                   className={`badge ${
