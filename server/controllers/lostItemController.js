@@ -23,6 +23,8 @@ export const addItem = async (req, res) => {
 
     const image = req.file;
 
+    const io = req.app.get('io');
+
     if (!name || !description || !dateLost || !location || !rollNo) {
         return res.status(400).json({ success: false, message: "Please fill all required fields" });
     }
@@ -38,6 +40,7 @@ export const addItem = async (req, res) => {
         });
         
         await newitem.save();
+        io.emit('new-lost-item', newitem);
         res.status(201).json({ success: true, data: newitem });
     } catch (error) {
         
