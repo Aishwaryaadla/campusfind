@@ -25,7 +25,7 @@ const App = () => {
         <Route path = '/browseitems' element={<BrowseItemsPage/>}/>
         <Route path=  '/admin/dashboard' element={<AdminDashboard />} />
         <Route path= '/user/dashboard' element={<UserDashboard />} />
-        <Route path = '/item/:id' element={<ItemDetail />} />
+        <Route path = '/item/:itemType/:id' element={<ItemDetail />} />
       </Routes>
     </div>
   )

@@ -77,15 +77,23 @@ export const deleteItem = async (req, res) => {
 };
 
 export const getItemById = async (req, res) => {
-    const { id } = req.params;
-
     try {
-        const item = await Lostitem.findById(id);
-        if (!item) {
-            return res.status(404).json({ success: false, message: "Item not found" });
-        }
-        res.status(200).json({ success: true, data: item });
+      console.log("Fetching item with ID:", req.params.id);
+  
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
+      }
+  
+      const item = await Lostitem.findById(req.params.id);
+  
+      if (!item) {
+        return res.status(404).json({ message: "Item not found" });
+      }
+  
+      res.status(200).json({ success: true, data: item });
     } catch (error) {
-        res.status(500).json({ success: false, message: "Server error" });
+      console.error("Error fetching item:", error.message);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-};
+  };
+  

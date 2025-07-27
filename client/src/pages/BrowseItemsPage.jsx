@@ -209,6 +209,7 @@ const BrowseItems = () => {
             {items.map((item) => (
               <ItemCard
                 key={item._id}
+                id={item._id}
                 title={item.name}
                 description={item.description}
                 image={item.imageUrl ? `http://localhost:4000${item.imageUrl}` : null}

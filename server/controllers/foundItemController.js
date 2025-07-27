@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Founditem from '../models/founditem.js';
 
+
 export const getAllFoundItems = async (req, res) => {
     try {
         const items = await Founditem.find({});
@@ -60,3 +61,25 @@ export const deleteFoundItem = async (req, res) => {
         res.status(404).json({ success: false, message: "Item not found" });
     }
 };
+
+
+export const getItemById = async (req, res) => {
+    try {
+      console.log("Fetching item with ID:", req.params.id);
+  
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
+      }
+  
+      const item = await Founditem.findById(req.params.id);
+  
+      if (!item) {
+        return res.status(404).json({ message: "Item not found" });
+      }
+  
+      res.status(200).json({ success: true, data: item });
+    } catch (error) {
+      console.error("Error fetching item:", error.message);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
