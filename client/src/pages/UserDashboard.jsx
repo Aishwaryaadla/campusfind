@@ -105,6 +105,8 @@ import {
   Bell,
   LogOut,
 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'; 
 import  DashboardOverview  from './dashboard/DashboardOverview';
 import  Messages  from './dashboard/Messages';
 import  LostItems  from './dashboard/LostItems';
@@ -119,8 +121,22 @@ const navigationItems = [
   { id: 'profile', label: 'Profile', icon: User },
 ];
 
+
+
 export default function UserDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    const confirmLogout = window.confirm("Are you sure you want to sign out?");
+    if (!confirmLogout) return;
+
+    localStorage.removeItem('user');
+    toast.success('Signed out successfully');
+    navigate('/', { replace: true }); // or use window.location.href = '/login';
+  };
+
 
   const renderContent = () => {
     switch (activeTab) {
@@ -186,10 +202,14 @@ export default function UserDashboard() {
 
             <div className="divider my-4"></div>
 
-            <button className="btn btn-ghost btn-sm justify-start gap-3">
-              <LogOut className="w-4 h-4" />
-              Sign Out
-            </button>
+            <button
+  onClick={handleSignOut}
+  className="btn btn-ghost btn-sm justify-start gap-3"
+>
+  <LogOut className="w-4 h-4" />
+  Sign Out
+</button>
+
           </div>
         </aside>
 

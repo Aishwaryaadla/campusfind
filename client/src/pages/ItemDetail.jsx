@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ItemDetail = () => {
   const { itemType, id } = useParams(); // now reading both values from URL
@@ -19,10 +20,11 @@ const ItemDetail = () => {
     if (!user) return alert('Please log in to send a message');
 
     axios
-      .post(`http://localhost:4000/api/messages/send`, {
+      .post(`http://localhost:4000/api/messages`, {
         sender: user._id,       // Make sure _id is stored in localStorage
         receiver: item.postedBy, // We'll fetch postedBy from item later
         itemId: item._id,
+        itemType: itemType === 'lost' ? 'Lostitem' : 'Founditem',
         content: message,
       })
       .then(() => {
@@ -64,7 +66,12 @@ const ItemDetail = () => {
           </button>
         </div>
       ) : (
-        <p className="mt-4 text-warning">Log in to send a message.</p>
+
+        <Link to="/login" state={{ from: `/item/${itemType}/${id}` }} className="btn btn-warning mt-4">
+          Log in to Message
+        </Link>
+
+
       )}
     </div>
   );

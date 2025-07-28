@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [formData, setFormData] = useState({
     rollNo: "",
@@ -11,6 +14,8 @@ const LoginPage = () => {
     adminId:""
   });
 
+  const params = new URLSearchParams(location.search);
+  const redirectTo = location.state?.from || (isAdmin ? "/admin/dashboard" : "/user/dashboard");
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -48,7 +53,7 @@ const LoginPage = () => {
           password: "",
           adminId: ""
         });        
-        navigate(isAdmin ? "/admin/dashboard" : "/user/dashboard");
+        navigate(redirectTo);
         // You can optionally store user data
         // localStorage.setItem("user", JSON.stringify(data.user));
       } else {
@@ -59,6 +64,7 @@ const LoginPage = () => {
       console.error("Login Error:", err);
       alert("Something went wrong");
     }
+    
   };
   
 

@@ -19,10 +19,15 @@ export const sendMessage = async (req, res) => {
   export const getMessagesByItem = async (req, res) => {
     const { itemId } = req.params;
     try {
-      const messages = await Message.find({ itemId }).sort({ timestamp: -1 });
+      const messages = await Message.find({ itemId })
+        .populate('sender', 'name rollNumber') // only include name and rollNumber from User
+        .populate('receiver', 'name rollNumber')
+        .sort({ timestamp: -1 });
+  
       res.status(200).json({ success: true, messages });
     } catch (err) {
       res.status(500).json({ success: false, message: "Server error" });
     }
   };
+  
   

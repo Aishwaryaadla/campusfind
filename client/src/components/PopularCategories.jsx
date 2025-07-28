@@ -4,14 +4,14 @@ import { Link } from 'react-router'
 
 const PopularCategories = () => {
   const categories = [
-    { icon: <Smartphone className="w-5 h-5 text-accent" />, name: 'Electronics', count: '156 items', desc: 'Phones, chargers, earbuds' },
-    { icon: <Backpack className="w-5 h-5 text-accent" />, name: 'Bags & Backpacks', count: '89 items', desc: 'Backpacks, purses, laptop bags' },
-    { icon: <Key className="w-5 h-5 text-accent" />, name: 'Keys & Cards', count: '234 items', desc: 'Keychains, ID cards, wallets' },
-    { icon: <Headphones className="w-5 h-5 text-accent" />, name: 'Accessories', count: '67 items', desc: 'Earphones, smartwatches, pendrives' },
-    { icon: <Book className="w-5 h-5 text-accent" />, name: 'Books & Supplies', count: '78 items', desc: 'Textbooks, notebooks, calculators' },
-    { icon: <Umbrella className="w-5 h-5 text-accent" />, name: 'Personal Items', count: '123 items', desc: 'Water bottles, umbrellas, clothing' },
-    { icon: <Watch className="w-5 h-5 text-accent" />, name: 'Watches & Jewelry', count: '34 items', desc: 'Watches, rings, chains' },
-    { icon: <Glasses className="w-5 h-5 text-accent" />, name: 'Glasses & Cases', count: '45 items', desc: 'Specs, shades, cases' },
+    { icon: <Smartphone className="w-5 h-5 text-accent" />, name: 'Electronics', desc: 'Phones, chargers, earbuds' },
+    { icon: <Backpack className="w-5 h-5 text-accent" />, name: 'Bags & Backpacks',  desc: 'Backpacks, purses, laptop bags' },
+    { icon: <Key className="w-5 h-5 text-accent" />, name: 'Keys & Cards', desc: 'Keychains, ID cards, wallets' },
+    { icon: <Headphones className="w-5 h-5 text-accent" />, name: 'Accessories',  desc: 'Earphones, smartwatches, pendrives' },
+    { icon: <Book className="w-5 h-5 text-accent" />, name: 'Books & Supplies', desc: 'Textbooks, notebooks, calculators' },
+    { icon: <Umbrella className="w-5 h-5 text-accent" />, name: 'Personal Items',  desc: 'Water bottles, umbrellas, clothing' },
+    { icon: <Watch className="w-5 h-5 text-accent" />, name: 'Watches & Jewelry',  desc: 'Watches, rings, chains' },
+    { icon: <Glasses className="w-5 h-5 text-accent" />, name: 'Glasses & Cases', desc: 'Specs, shades, cases' },
   ];
 
   return (
@@ -31,7 +31,6 @@ const PopularCategories = () => {
                 {cat.icon}
               </div>
               <h3 className="text-lg">{cat.name}</h3>
-              <p className="text-sm font-medium text-black">{cat.count}</p>
               <p className="text-xs text-muted-foreground">{cat.desc}</p>
             </div>
           </Card>
