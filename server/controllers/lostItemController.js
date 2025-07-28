@@ -97,3 +97,16 @@ export const getItemById = async (req, res) => {
     }
   };
   
+
+// Get all lost items reported by a specific user
+export const getLostItemsByUser = async (req, res) => {
+    try {
+      const { rollNo } = req.params;
+      const items = await Lostitem.find({ rollNo });
+      res.status(200).json({ success: true, data: items });
+    } catch (error) {
+      console.error('Error fetching lost items by user:', error.message);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  };
+  

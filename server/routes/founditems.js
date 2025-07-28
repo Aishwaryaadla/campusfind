@@ -4,13 +4,16 @@ import {
     addFoundItem,
     updateFoundItem,
     deleteFoundItem,
-    getItemById
+    getItemById,
+    getFoundItemsByUser
 } from '../controllers/foundItemController.js';
 
 import upload from '../middleware/upload.js';
 
 const router = express.Router();
 
+
+router.get('/user/:rollNo', getFoundItemsByUser);
 router.get('/', getAllFoundItems);
 router.post('/', upload.single('image'), addFoundItem);
 router.put('/:id', updateFoundItem);

@@ -83,3 +83,16 @@ export const getItemById = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
     }
   };
+
+// Get all found items reported by a specific user
+export const getFoundItemsByUser = async (req, res) => {
+    try {
+      const { rollNo } = req.params;
+      const items = await Founditem.find({ rollNo });
+      res.status(200).json({ success: true, data: items });
+    } catch (error) {
+      console.error('Error fetching found items by user:', error.message);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  };
+  

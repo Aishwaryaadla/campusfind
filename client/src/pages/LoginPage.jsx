@@ -41,7 +41,7 @@ const LoginPage = () => {
       const data = await res.json();
   
       if (res.ok) {
-        alert(data.message || "Login Successful");
+        // alert(data.message || "Login Successful");
         localStorage.setItem("user", JSON.stringify(data.user  || { role: "admin" }));
         setFormData({
           rollNo: "",
