@@ -146,9 +146,6 @@ export default function UserDashboard() {
         <div className="flex justify-between items-center px-6 py-4">
           <h1 className="text-2xl font-bold text-primary">CampusFind</h1>
           <div className="flex items-center gap-4">
-            <button className="btn btn-ghost btn-circle">
-              <Bell className="w-5 h-5" />
-            </button>
             <div className="avatar placeholder">
               <div className="bg-neutral text-neutral-content rounded-full w-10">
                 <span>JD</span>
@@ -189,10 +186,6 @@ export default function UserDashboard() {
 
             <div className="divider my-4"></div>
 
-            <button className="btn btn-ghost btn-sm justify-start gap-3">
-              <Settings className="w-4 h-4" />
-              Settings
-            </button>
             <button className="btn btn-ghost btn-sm justify-start gap-3">
               <LogOut className="w-4 h-4" />
               Sign Out
