@@ -1,163 +1,158 @@
-import { useState } from 'react';
-import { Plus, Search, MapPin, Calendar, MoreHorizontal, Eye } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Plus,
+  MapPin,
+  Calendar,
+  MoreHorizontal,
+} from 'lucide-react';
 
 export default function FoundItems() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [foundItems, setFoundItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const foundItems = [
-    {
-      id: 1,
-      title: 'Red Water Bottle',
-      description: 'Hydro Flask with name "Sarah" written on it',
-      location: 'Gym - Locker Room',
-      dateReported: '1 day ago',
-      status: 'active',
-      views: 12,
-      messages: 2,
-      imageUrl: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&h=200&fit=crop'
-    },
-    {
-      id: 2,
-      title: 'Wireless Earbuds',
-      description: 'Apple AirPods Pro in white case',
-      location: 'Library - Study Room 3',
-      dateReported: '3 days ago',
-      status: 'claimed',
-      views: 28,
-      messages: 4,
-      imageUrl: 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=300&h=200&fit=crop'
-    },
-    {
-      id: 3,
-      title: 'Textbook - Biology 101',
-      description: 'Campbell Biology textbook, 12th edition with highlighting',
-      location: 'Science Building - Room 205',
-      dateReported: '1 week ago',
-      status: 'returned',
-      views: 15,
-      messages: 3,
-      imageUrl: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=200&fit=crop'
+  const user = JSON.parse(localStorage.getItem('user')); // Ensure 'user' has rollNo
+
+  useEffect(() => {
+    const fetchFoundItems = async () => {
+      try {
+        const res = await axios.get(`/api/found/user/${user.rollNo}`);
+        if (res.data.success) {
+          setFoundItems(res.data.data);
+        }
+      } catch (err) {
+        console.error('Error fetching found items:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?.rollNo) {
+      fetchFoundItems();
     }
-  ];
+  }, [user?.rollNo]);
 
-  const filteredItems = foundItems.filter(item =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = foundItems.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getBadgeClass = (status) => {
+  const getStatusColor = (status) => {
     switch (status) {
-      case 'active':
-        return 'badge badge-info';
       case 'claimed':
-        return 'badge badge-warning';
+        return 'badge-secondary';
       case 'returned':
-        return 'badge badge-success';
+        return 'badge-outline';
       default:
-        return 'badge';
+        return 'badge-primary';
     }
   };
 
   const getStatusText = (status) => {
     switch (status) {
-      case 'active': return 'Available';
-      case 'claimed': return 'Claimed';
-      case 'returned': return 'Returned';
-      default: return 'Available';
+      case 'claimed':
+        return 'Claimed';
+      case 'returned':
+        return 'Returned';
+      default:
+        return 'Unclaimed';
     }
   };
 
+  if (loading) return <div className="text-center">Loading...</div>;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">My Found Items</h1>
-          <p className="text-sm text-gray-500">Items you've found and reported on campus.</p>
+          <h1 className="text-2xl font-bold">My Found Items</h1>
+          <p className="text-sm text-gray-500">
+            Items you've reported as found on campus.
+          </p>
         </div>
-        <button className="btn btn-primary">
-          <Plus className="w-4 h-4 mr-2" />
-          Report Found Item
-        </button>
       </div>
 
-      <div className="card bg-base-100 shadow-sm">
-        <div className="card-body">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="card-title">Found Items ({filteredItems.length})</h2>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search your found items..."
-                className="input input-bordered pl-10 w-72"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
+      {/* Card Container */}
+      <div className="bg-base-100 rounded-xl shadow p-6">
+        {/* Card Header */}
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold">
+            Found Items ({filteredItems.length})
+          </h2>
+        </div>
 
-          <div className="grid gap-6">
-            {filteredItems.map((item) => (
-              <div key={item.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4">
-                  <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => (e.target.src = 'https://via.placeholder.com/100')}
-                    />
-                  </div>
+        {/* Items Grid */}
+        <div className="grid gap-6">
+          {filteredItems.map((item) => (
+            <div
+              key={item._id}
+              className="border rounded-xl p-4 hover:shadow transition"
+            >
+              <div className="flex items-start space-x-4">
+                {/* Image */}
+                <div className="w-24 h-24 bg-base-200 rounded-lg overflow-hidden flex-shrink-0">
+                  <img
+                    src={
+                      item.imageUrl ||
+                      'https://via.placeholder.com/100x100?text=No+Image'
+                    }
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src =
+                        'https://via.placeholder.com/100x100?text=No+Image';
+                    }}
+                  />
+                </div>
 
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-lg font-medium">{item.title}</h3>
-                        <p className="text-sm text-gray-500 mb-2">{item.description}</p>
-                        <div className="flex items-center flex-wrap gap-4 text-sm text-gray-500">
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {item.location}
-                          </div>
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {item.dateReported}
-                          </div>
-                          <div className="flex items-center">
-                            <Eye className="w-4 h-4 mr-1" />
-                            {item.views} views
-                          </div>
-                        </div>
-                      </div>
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-semibold text-lg">{item.name}</h3>
+                      <p className="text-sm text-gray-500">
+                        {item.description}
+                      </p>
 
-                      <div className="flex items-center gap-2">
-                        <span className={getBadgeClass(item.status)}>
-                          {getStatusText(item.status)}
+                      <div className="flex items-center gap-4 text-sm text-gray-500 mt-2">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" /> {item.location}
                         </span>
-                        <button className="btn btn-ghost btn-sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </button>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(item.dateFound).toLocaleDateString()}
+                        </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-4">
-                      <span className="text-sm text-gray-500">
-                        {item.messages} messages
+                    {/* Status + Options */}
+                    <div className="flex items-center gap-2">
+                      <span className={`badge ${getStatusColor(item.status)}`}>
+                        {getStatusText(item.status)}
                       </span>
-                      <div className="flex gap-2">
-                        <button className="btn btn-outline btn-sm">Edit</button>
-                        <button className="btn btn-outline btn-sm">View Details</button>
-                        {item.status === 'claimed' && (
-                          <button className="btn btn-sm btn-success">Mark as Returned</button>
-                        )}
-                      </div>
+                      <button className="btn btn-ghost btn-sm">
+                        <MoreHorizontal className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Footer Actions */}
+                  <div className="flex justify-between items-center mt-4">
+                    <p className="text-sm text-gray-500">...</p>
+                    <div className="flex gap-2">
+                      <button className="btn btn-sm btn-outline">Edit</button>
+                      <button className="btn btn-sm btn-outline">
+                        View Details
+                      </button>
+                      {/* Optionally: Mark as returned */}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
+            </div>
+          ))}
         </div>
       </div>
     </div>
