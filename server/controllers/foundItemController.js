@@ -65,7 +65,7 @@ export const deleteFoundItem = async (req, res) => {
 
 export const getItemById = async (req, res) => {
     try {
-      console.log("Fetching item with ID:", req.params.id);
+    //   console.log("Fetching item with ID:", req.params.id);
   
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(400).json({ message: "Invalid ID format" });

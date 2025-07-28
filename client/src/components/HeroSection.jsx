@@ -56,7 +56,9 @@ const HeroSection = () => {
       {items.map((item) => (
         <ItemCard
           key={item._id}
-          title={item.name}
+          id={item._id}
+          itemType={"lost"}
+          title={item.name} 
           description={
             <>
               <p>{item.description}</p>

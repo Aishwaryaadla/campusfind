@@ -92,9 +92,10 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
+        
 
         <h2 className="text-xl font-semibold mb-4">Found Items</h2>
-        <table className="table w-full">
+        <table className="table w-full mb-8">
           <thead>
             <tr>
               <th>Name</th>
@@ -119,6 +120,7 @@ const AdminDashboard = () => {
         </table>
       </div>
     </div>
+    
   );
 };
 
