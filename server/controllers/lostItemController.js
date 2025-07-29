@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 import Lostitem from '../models/lostitem.js';
 
-// Update your getAllItems function
 export const getAllItems = async (req, res) => {
     try {
         const searchQuery = req.query.search || '';
         
         const items = await Lostitem.find({
-            name: { $regex: searchQuery, $options: 'i' }  // case-insensitive search on item name
+            name: { $regex: searchQuery, $options: 'i' }  
         });
 
         res.status(200).json({ success: true, data: items });
@@ -98,7 +97,6 @@ export const getItemById = async (req, res) => {
   };
   
 
-// Get all lost items reported by a specific user
 export const getLostItemsByUser = async (req, res) => {
     try {
       const { rollNo } = req.params;

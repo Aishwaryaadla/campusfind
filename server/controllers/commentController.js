@@ -22,7 +22,7 @@ export const createComment = async (req, res) => {
     });
 
     await comment.save();
-    await comment.populate('user', 'name'); // populate only name
+    await comment.populate('user', 'name'); 
 
     res.status(201).json({ comment });
   } catch (error) {

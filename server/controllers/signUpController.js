@@ -6,16 +6,13 @@ const signUpController = async (req, res) => {
     try {
       const { name, rollNo, password, branch, year,role } = req.body;
   
-      // Check if user already exists
       const existingUser = await User.findOne({ rollNo });
       if (existingUser) {
         return res.status(400).json({ message: 'User already exists with this Roll Number' });
       }
   
-      // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
   
-      // Create user
       const newUser = new User({
         name,
         rollNo,

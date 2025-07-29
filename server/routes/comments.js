@@ -1,4 +1,4 @@
-// routes/comments.js
+
 import express from 'express';
 import { createComment, getCommentsByItem } from '../controllers/commentController.js';
 import verifyToken from '../middleware/verifyToken.js';

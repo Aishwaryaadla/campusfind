@@ -7,13 +7,11 @@ const logInController = async (req, res) => {
     try {
       const { rollNo, password } = req.body;
   
-      // Find user by roll number
       const user = await User.findOne({ rollNo });
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      // Compare password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ message: 'Invalid credentials' });

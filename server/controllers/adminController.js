@@ -1,9 +1,8 @@
 import bcrypt from 'bcryptjs';
 
-const ADMIN_ID = '066'; // replace with your fixed adminId
-const ADMIN_PLAIN_PASSWORD = 'admin@007'; // replace with your real admin password
+const ADMIN_ID = '066'; 
+const ADMIN_PLAIN_PASSWORD = 'admin@007'; 
 
-// Pre-hash once and store only the hashed version in production
 const ADMIN_HASHED_PASSWORD = await bcrypt.hash(ADMIN_PLAIN_PASSWORD, 10);
 
 const loginAdminController = async (req, res) => {
