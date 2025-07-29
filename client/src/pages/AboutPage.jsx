@@ -1,228 +1,81 @@
-// import React from 'react'
-// import {
-//   Upload,
-//   Brain,
-//   Target,
-//   CheckCircle,
-//   ArrowRight,
-// } from "lucide-react";
-// import Card from "../components/ui/Card";
-
-// const steps = [
-//   {
-//     icon: <Upload className="w-6 h-6 text-blue-600" />,
-//     title: "Upload & Analyze",
-//     description:
-//       "Upload images and descriptions. AI extracts visual features using YOLOv8 and generates semantic tags.",
-//     tech: "Computer Vision + NLP",
-//     color: "blue",
-//   },
-//   {
-//     icon: <Brain className="w-6 h-6 text-purple-600" />,
-//     title: "Smart Matching",
-//     description:
-//       "AI compares visual embeddings and text similarity across all database entries in real-time.",
-//     tech: "Vector Similarity + ML",
-//     color: "purple",
-//   },
-//   {
-//     icon: <Target className="w-6 h-6 text-orange-600" />,
-//     title: "Confidence Scoring",
-//     description:
-//       "Each potential match gets a confidence score based on visual and semantic similarity.",
-//     tech: "Cosine Similarity + Weights",
-//     color: "orange",
-//   },
-//   {
-//     icon: <CheckCircle className="w-6 h-6 text-green-600" />,
-//     title: "Instant Results",
-//     description:
-//       "Get ranked matches with confidence scores. Users can confirm matches and connect.",
-//     tech: "Real-time Notifications",
-//     color: "green",
-//   },
-// ];
-
-// const AboutPage = () => {
-//   return (
-//     <div className="py-16 px-4 bg-base-200">
-//       <div className="max-w-6xl mx-auto text-center mb-12">
-//         <h2 className="text-3xl font-bold mb-4">How Our Smart AI Works</h2>
-//         <p className="text-base-content text-opacity-70 max-w-2xl mx-auto">
-//           Behind every successful match is a sophisticated AI pipeline that
-//           analyzes, compares, and ranks items with incredible accuracy.
-//         </p>
-//       </div>
-
-//       {/* Steps */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-//         {steps.map((step, index) => (
-//           <div key={index} className="relative">
-//             <Card
-//               title={step.title}
-//               description={step.description}
-//               image={null}
-//             >
-//               <div className="flex items-center justify-between w-full px-2">
-//                 <div className="bg-base-300 rounded-full p-2">{step.icon}</div>
-//                 <span className="text-xs text-base-content text-opacity-70">
-//                   {step.tech}
-//                 </span>
-//               </div>
-//             </Card>
-
-//             {/* Arrow between steps */}
-//             {index < steps.length - 1 && (
-//               <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-//                 <ArrowRight className="w-6 h-6 text-base-content text-opacity-50" />
-//               </div>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Performance Section */}
-//       <div className="mt-16 flex flex-col items-center justify-center">
-//         <Card title="Performance Highlights" description="">
-//           <div className="flex flex-wrap gap-6 justify-center">
-//             <div className="text-center">
-//               <div className="text-2xl font-bold text-blue-600">2.3M+</div>
-//               <div className="text-sm text-base-content text-opacity-70">
-//                 Items Processed
-//               </div>
-//             </div>
-//             <div className="text-center">
-//               <div className="text-2xl font-bold text-purple-600">1.8s</div>
-//               <div className="text-sm text-base-content text-opacity-70">
-//                 Avg Match Time
-//               </div>
-//             </div>
-//             <div className="text-center">
-//               <div className="text-2xl font-bold text-green-600">94.7%</div>
-//               <div className="text-sm text-base-content text-opacity-70">
-//                 Success Rate
-//               </div>
-//             </div>
-//           </div>
-//         </Card>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AboutPage;
-
-
 import React from 'react';
-import {
-  Upload,
-  Brain,
-  Target,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
-import InfoCard from "../components/ui/InfoCard"; 
+import { ChevronDown } from 'lucide-react';
 
-const steps = [
+const faqs = [
   {
-    icon: <Upload className="w-6 h-6 text-blue-600" />,
-    title: "Upload & Analyze",
-    description:
-      "Upload images and descriptions. AI extracts visual features using YOLOv8 and generates semantic tags.",
-    tech: "Computer Vision + NLP",
-    color: "blue",
+    question: "How do I report a lost or found item?",
+    answer:
+      "Go to the homepage and click on either 'Report Lost Item' or 'Report Found Item'. Fill in the required details, upload image if available and submit the form.",
   },
   {
-    icon: <Brain className="w-6 h-6 text-purple-600" />,
-    title: "Smart Matching",
-    description:
-      "AI compares visual embeddings and text similarity across all database entries in real-time.",
-    tech: "Vector Similarity + ML",
-    color: "purple",
+    question: "How can I contact the person who posted an item?",
+    answer:
+      "Click on the item card to view its full details. If you're logged in, you'll see an option to send a message to the poster.",
   },
   {
-    icon: <Target className="w-6 h-6 text-orange-600" />,
-    title: "Confidence Scoring",
-    description:
-      "Each potential match gets a confidence score based on visual and semantic similarity.",
-    tech: "Cosine Similarity + Weights",
-    color: "orange",
+    question: "Do I need to create an account to use the platform?",
+    answer:
+      "You can browse items without an account, but to report an item or contact someone, you need to sign up or log in.",
   },
   {
-    icon: <CheckCircle className="w-6 h-6 text-green-600" />,
-    title: "Instant Results",
-    description:
-      "Get ranked matches with confidence scores. Users can confirm matches and connect.",
-    tech: "Real-time Notifications",
-    color: "green",
+    question: "Can I edit or delete my reported item?",
+    answer:
+      "Yes. Go to your dashboard after logging in. You'll find options to edit, mark as returned, or delete your posts.",
   },
+  {
+    question: "Is there a way to see only recently added items?",
+    answer:
+      "Yes. The homepage shows the most recently reported lost and found items for quick access.",
+  },
+  {
+    question: "Can I report multiple items from the same account?",
+    answer:
+      "Absolutely! You can report as many lost or found items as needed from a single account.",
+  },
+  {
+    question: "What if I found my lost item?",
+    answer:
+      "Log in to your account, go to your dashboard, and click 'Mark as Returned' on the relevant item.",
+  },
+  {
+    question: "Is my personal information shared with others?",
+    answer:
+      "No. Your name and contact details are hidden. Only the messages you send or receive are shared, and only when you're logged in.",
+  },
+  {
+    question: "What should I do if I need help or more information about an item?",
+    answer:
+      "If you have any concerns or need further details about a reported item, you can contact the admin through the website, or visit the NSS office on campus during working hours for assistance.",
+  },
+  
 ];
 
-const AboutPage = () => {
+const FAQPage = () => {
   return (
     <div className="py-16 px-4 bg-base-200 min-h-screen">
-      <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4">How Our Smart AI Works</h2>
-        <p className="text-base-content text-opacity-70 max-w-2xl mx-auto">
-          Behind every successful match is a sophisticated AI pipeline that
-          analyzes, compares, and ranks items with incredible accuracy.
+      <div className="max-w-4xl mx-auto text-center mb-12">
+        <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+        <p className="text-base-content text-opacity-70">
+          Find answers to common questions about using the Campus Lost & Found system.
         </p>
       </div>
 
-      {/* Steps */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-        {steps.map((step, index) => (
-          <div key={index} className="relative">
-            <InfoCard
-              title={step.title}
-              description={step.description}
-            >
-              <div className="flex items-center justify-between w-full px-2">
-                <div className="bg-base-300 rounded-full p-2">{step.icon}</div>
-                <span className="text-xs text-base-content text-opacity-70">
-                  {step.tech}
-                </span>
-              </div>
-            </InfoCard>
-
-            {/* Arrow between steps */}
-            {index < steps.length - 1 && (
-              <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                <ArrowRight className="w-6 h-6 text-base-content text-opacity-50" />
-              </div>
-            )}
+      <div className="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq, index) => (
+          <div key={index} className="collapse collapse-arrow bg-base-100 shadow-md">
+            <input type="checkbox" className="peer" />
+            <div className="collapse-title text-lg font-medium flex items-center gap-2">
+              <ChevronDown className="w-4 h-4 text-base-content text-opacity-60" />
+              {faq.question}
+            </div>
+            <div className="collapse-content text-base-content text-opacity-80">
+              <p>{faq.answer}</p>
+            </div>
           </div>
         ))}
-      </div>
-
-      {/* Performance Section */}
-      <div className="mt-16 flex flex-col items-center justify-center">
-        <InfoCard title="Performance Highlights" description="">
-          <div className="flex flex-wrap gap-6 justify-center">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">2.3M+</div>
-              <div className="text-sm text-base-content text-opacity-70">
-                Items Processed
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">1.8s</div>
-              <div className="text-sm text-base-content text-opacity-70">
-                Avg Match Time
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">94.7%</div>
-              <div className="text-sm text-base-content text-opacity-70">
-                Success Rate
-              </div>
-            </div>
-          </div>
-        </InfoCard>
       </div>
     </div>
   );
 };
 
-export default AboutPage;
-
+export default FAQPage;

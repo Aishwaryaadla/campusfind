@@ -77,7 +77,7 @@ const Navbar = () => {
                 </Link>
 
                 <Link to={"/about"} className="text-muted-foreground hover:text-foreground transition-colors">
-                <span>How It Works</span>
+                <span>FAQs</span>
                 </Link>
 
 
