@@ -6,12 +6,12 @@ import path from 'path';
 import http from 'http';
 import { Server } from 'socket.io';
 
-import messageroute from './routes/message.js';
 import lostitemsroute from './routes/lostitems.js';
 import founditemsroute from './routes/founditems.js';
 import authRoutes from './routes/auth.js';
 import adminRoute from './routes/admin.js';
 import { fileURLToPath } from 'url';
+import commentRoutes from './routes/comments.js';
 
 
 const app = express();
@@ -48,7 +48,7 @@ app.use("/api/lostitems",lostitemsroute);
 app.use("/api/founditems",founditemsroute);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoute);
-app.use('/api/messages',messageroute);
+app.use('/api/comments', commentRoutes);
 
 // app.listen(PORT, () => {
 //     connectDB();
