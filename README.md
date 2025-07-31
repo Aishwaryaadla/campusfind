@@ -66,7 +66,8 @@ This platform is designed for:
 
 ## Screenshots
 
-![Screen Recording 2025-07-31 at 10 47 29 PM](https://github.com/user-attachments/assets/05fbed53-5ff9-4517-ad9d-816f3a29ae02)
+![App Screenshot](./github)
+
 
 
 
