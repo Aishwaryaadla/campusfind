@@ -6,6 +6,7 @@ import {
   Calendar,
   MoreHorizontal,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function FoundItems({ user }) {
   const [foundItems, setFoundItems] = useState([]);
@@ -73,6 +74,13 @@ export default function FoundItems({ user }) {
         </div>
       </div>
 
+      <input
+          type="text"
+          placeholder="Search found items..."
+          className="input input-bordered input-sm w-full max-w-xs"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
       {/* Card Container */}
       <div className="bg-base-100 rounded-xl shadow p-6">
@@ -83,13 +91,7 @@ export default function FoundItems({ user }) {
           </h2>
         </div>
 
-        <input
-          type="text"
-          placeholder="Search found items..."
-          className="input input-bordered input-sm w-full max-w-xs"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        
 
         {/* Items Grid */}
         <div className="grid gap-6">
@@ -99,21 +101,8 @@ export default function FoundItems({ user }) {
               className="border rounded-xl p-4 hover:shadow transition"
             >
               <div className="flex items-start space-x-4">
-                {/* Image */}
-                <div className="w-24 h-24 bg-base-200 rounded-lg overflow-hidden flex-shrink-0">
-                  <img
-                    src={
-                      item.imageUrl ||
-                      'https://via.placeholder.com/100x100?text=No+Image'
-                    }
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src =
-                        'https://via.placeholder.com/100x100?text=No+Image';
-                    }}
-                  />
-                </div>
+             
+                
 
                 {/* Content */}
                 <div className="flex-1">
@@ -135,29 +124,16 @@ export default function FoundItems({ user }) {
                       </div>
                     </div>
 
-                    {/* Status + Options */}
-                    <div className="flex items-center gap-2">
-                      <span className={`badge ${getStatusColor(item.status)}`}>
-                        {getStatusText(item.status)}
-                      </span>
-                      <button className="btn btn-ghost btn-sm">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </button>
-                    </div>
+                    
+                    
                   </div>
 
-                  {/* Footer Actions */}
-                  <div className="flex justify-between items-center mt-4">
-                    <p className="text-sm text-gray-500">...</p>
-                    <div className="flex gap-2">
-                      <button className="btn btn-sm btn-outline">Edit</button>
-                      <button className="btn btn-sm btn-outline">
-                        View Details
-                      </button>
-                      {/* Optionally: Mark as returned */}
-                    </div>
-                  </div>
+                  
                 </div>
+                {/* Footer Actions */}
+                <Link to={`/found/edit/${item._id}`} className="btn btn-sm btn-outline">
+                    Edit
+                  </Link>
               </div>
             </div>
           ))}

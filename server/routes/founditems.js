@@ -16,10 +16,10 @@ const router = express.Router();
 
 router.get('/user/:rollNo', getFoundItemsByUser);
 router.get('/', getAllFoundItems);
+router.get('/:id', getItemById);
 router.post('/', upload.single('image'), addFoundItem);
 router.put('/:id', updateFoundItem);
 router.delete('/:id', deleteFoundItem);
-router.get('/:id', getItemById);
 router.put('/return/:id', markFoundItemReturned); 
 
 export default router;

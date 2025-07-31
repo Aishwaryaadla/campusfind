@@ -115,8 +115,6 @@ export default function LostItems({ user }) {
         </div>
 
 
-      <br></br>
-
         {/* Items Grid */}
         <div className="grid gap-6">
           {filteredItems.map((item) => (
@@ -147,18 +145,11 @@ export default function LostItems({ user }) {
                     </div>
 
                    
-                  </div>
-
-                  {/* Footer Actions */}
-                  <div className="flex justify-between items-center mt-4">
-                    <p className="text-sm text-gray-500">...</p>
-                    <div className="flex gap-2">
-                      <Link to={`/lost/edit/${item._id}`} className="btn btn-sm btn-outline mt-2">
-                        Edit
-                      </Link>
-                    </div>
-                  </div>
+                  </div>           
                 </div>
+                <Link to={`/lost/edit/${item._id}`} className="btn btn-sm btn-outline">
+                  Edit
+                </Link>
               </div>
             </div>
           ))}
