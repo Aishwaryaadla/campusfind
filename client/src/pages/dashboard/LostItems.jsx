@@ -20,7 +20,8 @@ export default function LostItems({ user }) {
       if (!rollNo) return;
   
       try {
-        const res = await axios.get(`http://localhost:5000/api/lostitems/user/${user.rollNo}`);
+        const res = await axios.get(`http://localhost:4000/api/lostitems/user/${user.rollNo}`);
+        console.log('Lost items:', res.data.data);
         setLostItems(res.data.data); // or your state key
         setLoading(false); 
       } catch (err) {
@@ -104,21 +105,6 @@ export default function LostItems({ user }) {
               className="border rounded-xl p-4 hover:shadow transition"
             >
               <div className="flex items-start space-x-4">
-                {/* Image */}
-                <div className="w-24 h-24 bg-base-200 rounded-lg overflow-hidden flex-shrink-0">
-                  <img
-                    src={
-                      item.imageUrl ||
-                      'https://via.placeholder.com/100x100?text=No+Image'
-                    }
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src =
-                        'https://via.placeholder.com/100x100?text=No+Image';
-                    }}
-                  />
-                </div>
 
                 {/* Content */}
                 <div className="flex-1">

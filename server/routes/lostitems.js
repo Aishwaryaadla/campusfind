@@ -14,11 +14,12 @@ import upload from '../middleware/upload.js';
 const router = express.Router();
 
 router.get('/', getAllItems);
+router.get('/user/:rollNo', getLostItemsByUser);
 router.get('/:id', getItemById);
 router.post('/', upload.single('image'), addItem);
 router.put('/:id', updateItem);
 router.delete('/:id', deleteItem);
-router.get('/user/:rollNo', getLostItemsByUser);
+
 router.put('/return/:id', markItemReturned); 
 
 export default router;

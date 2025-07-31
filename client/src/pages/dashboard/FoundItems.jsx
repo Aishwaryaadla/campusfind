@@ -15,7 +15,7 @@ export default function FoundItems({ user }) {
   useEffect(() => {
     const fetchFoundItems = async () => {
       try {
-        const res = await axios.get(`/api/founditems/user/${user.rollNo}`);
+        const res = await axios.get(`http://localhost:4000/api/founditems/user/${user.rollNo}`);
         if (res.data.success) {
           setFoundItems(res.data.data);
         }
