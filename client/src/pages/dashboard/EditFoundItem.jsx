@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function EditFoundItem() {
   const { id } = useParams();
@@ -37,6 +38,7 @@ export default function EditFoundItem() {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:4000/api/founditems/${id}`, formData);
+      toast.success('Item updated');
       navigate('/user/dashboard'); // or wherever your found items list is
     } catch (err) {
       console.error('Failed to update item:', err);
@@ -79,7 +81,7 @@ export default function EditFoundItem() {
           className="input input-bordered w-full"
           required
         />
-        <button className="btn btn-primary w-full">Update</button>
+        <button className="btn btn-primary w-full">Save Changes</button>
       </form>
     </div>
   );

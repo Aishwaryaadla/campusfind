@@ -1,17 +1,72 @@
-import { PlusIcon, Search, Eye, CheckCircle } from 'lucide-react';
+import { PlusIcon, ExternalLink, Book, MapPin, Clock, Lightbulb, Search, Shield, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function DashboardOverview() {
-  const [lostCount, setLostCount] = useState(0);
-  const [foundCount, setFoundCount] = useState(0);
-  const [returnedCount, setReturnedCount] = useState(0);
+  const [userName, setUserName] = useState('');
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
+  
+  const quickLinks = [
+    {
+      title: 'College Portal',
+      description: 'Access grades, schedules, and academic info',
+      icon: Book,
+      href: 'https://www.vce.ac.in/',
+      external: true,
+    },
+    {
+      title: 'Campus Map',
+      description: 'Interactive map with building locations',
+      icon: MapPin,
+      href: '/coming-soon',
+      external: true,
+    },
+    {
+      title: 'Library Hours',
+      description: 'Check current library hours and availability',
+      icon: Clock,
+      href: '/coming-soon',
+      external: true,
+    },
+  ];
+
+  const tips = [
+    {
+      title: "Lost Item Tip",
+      description: "Check the exact location where you last remember having your item - most items are found within 50 feet of where they were lost",
+      icon: Lightbulb,
+    },
+    {
+      title: "Search Smart",
+      description: "Use keywords to quickly find lost items.",
+      icon: Search,
+    },
+    {
+      title: "Be Specific",
+      description: "Include specific details like building, room number, or nearby landmarks when reporting lost items",
+      icon: Shield,
+    },
+    {
+      title: "Stay Updated",
+      description: "Check the website regularly for new item reports.",
+      icon: Bell,
+    },
+  ];
 
   useEffect(() => {
+    
     const token = localStorage.getItem('token');
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (!token || !storedUser) return;
+
+    setUserName(storedUser.name || 'User');
   
     const fetchData = async () => {
       try {
@@ -38,41 +93,19 @@ export default function DashboardOverview() {
   
     fetchData();
   }, []);
-  
 
-  const reportStats = [
-    {
-      id: 'lost',
-      label: 'Lost Items Reported',
-      count: lostCount,
-      icon: Search,
-      color: 'bg-red-100 text-red-600',
-    },
-    {
-      id: 'found',
-      label: 'Found Items Reported',
-      count: foundCount,
-      icon: Eye,
-      color: 'bg-green-100 text-green-600',
-    },
-    {
-      id: 'returned',
-      label: 'Items Returned',
-      count: returnedCount,
-      icon: CheckCircle,
-      color: 'bg-blue-100 text-blue-600',
-    },
-  ];
 
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Dashboard Overview</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Welcome back! Here's a quick look at your reports.
-          </p>
+        <h1 className="text-2xl font-bold">
+          {getGreeting()}, {userName}! 👋
+        </h1>
+        <p className="text-sm text-gray-500 mt-1">
+          Welcome back to CampusFind. Hope you're having a great semester!
+        </p>
         </div>
         <div className="flex gap-2">
           <Link to="/lost" className="btn btn-primary">
@@ -86,26 +119,53 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* My Reports Summary */}
-      <div className="bg-base-100 shadow-md rounded-xl p-6">
-        <h2 className="text-lg font-semibold mb-4">My Reports</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reportStats.map((stat) => (
-            <div
-              key={stat.id}
-              className="flex items-center p-4 rounded-lg bg-base-200 shadow-sm"
-            >
-              <div className={`p-3 rounded-full ${stat.color} mr-4`}>
-                <stat.icon className="w-6 h-6" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{stat.count}</p>
-                <p className="text-sm text-gray-500">{stat.label}</p>
-              </div>
+      <div className="bg-white p-6 rounded-xl shadow-md">
+      <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white">
+        {quickLinks.map((link, index) => (
+          <a
+            key={index}
+            href={link.href}
+            target={link.external ? "_blank" : "_self"}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            className="flex items-center gap-4 p-4 bg-base-100 rounded-lg hover:bg-base-300 transition-colors shadow-sm"
+          >
+            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+              <link.icon className="w-5 h-5 text-primary" />
             </div>
-          ))}
-        </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <p className="font-medium">{link.title}</p>
+                {link.external && (
+                  <ExternalLink className="w-3 h-3 text-gray-500" />
+                )}
+              </div>
+              <p className="text-sm text-gray-500">{link.description}</p>
+            </div>
+          </a>
+        ))}
       </div>
+    </div>
+
+    <div className="bg-white rounded-xl shadow-md p-6">
+      <h2 className="text-2xl font-bold mb-4">Helpful Tips</h2>
+      <div className="space-y-4">
+        {tips.map((tip, index) => (
+          <div
+            key={index}
+            className="flex items-start gap-4 bg-white p-4 rounded-lg "
+          >
+            <div className="p-2 bg-secondary/10 text-secondary rounded-full">
+              <tip.icon className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-semibold">{tip.title}</p>
+              <p className="text-sm text-base-content/70">{tip.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
     </div>
   );
 }
