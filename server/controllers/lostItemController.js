@@ -113,7 +113,7 @@ export const getLostItemsByUser = async (req, res) => {
     try {
       const updated = await Lostitem.findByIdAndUpdate(
         req.params.id,
-        { status: 'Returned' },
+        { status: ' returned' },
         { new: true }
       );
       if (!updated) {

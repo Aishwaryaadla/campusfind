@@ -11,6 +11,7 @@ import BrowseItemsPage from './pages/BrowseItemsPage';
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import ItemDetail from './pages/ItemDetail';
+import EditLostItem from './pages/dashboard/EditLostItem';
 
 const App = () => {
   return (
@@ -27,6 +28,8 @@ const App = () => {
         <Route path= '/user/dashboard' element={<UserDashboard />} />
         <Route path = '/item/:itemType/:id' element={<ItemDetail />} />
         <Route path = '/user/dashboard' element={<UserDashboard />} />
+        <Route path="/lost/edit/:id" element={<EditLostItem />} />
+
       </Routes>
     </div>
   )

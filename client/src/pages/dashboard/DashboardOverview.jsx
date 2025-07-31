@@ -10,23 +10,24 @@ export default function DashboardOverview() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) return;
-
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (!token || !storedUser) return;
+  
     const fetchData = async () => {
       try {
-        const lostRes = await axios.get('http://localhost:4000/api/lost/user', {
+        const lostRes = await axios.get(`http://localhost:4000/api/lostitems/user/${storedUser.rollNo}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const foundRes = await axios.get('http://localhost:4000/api/found/user', {
+        const foundRes = await axios.get(`http://localhost:4000/api/founditems/user/${storedUser.rollNo}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
+  
         const lostItems = lostRes.data.items || [];
         const foundItems = foundRes.data.items || [];
-
+  
         const returnedLost = lostItems.filter((item) => item.isReturned).length;
         const returnedFound = foundItems.filter((item) => item.isReturned).length;
-
+  
         setLostCount(lostItems.length);
         setFoundCount(foundItems.length);
         setReturnedCount(returnedLost + returnedFound);
@@ -34,9 +35,10 @@ export default function DashboardOverview() {
         console.error('Error fetching user item data:', error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const reportStats = [
     {

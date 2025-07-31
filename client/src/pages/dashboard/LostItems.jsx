@@ -6,11 +6,28 @@ import {
   Calendar,
   MoreHorizontal,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function LostItems({ user }) {
   const [lostItems, setLostItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const markAsReturned = async (id) => {
+    try {
+      const res = await axios.put(`http://localhost:4000/api/lostitems/return/${id}`);
+      const updatedItem = res.data.data;
+  
+      // Update state
+      setLostItems((prevItems) =>
+        prevItems.map((item) =>
+          item._id === updatedItem._id ? updatedItem : item
+        )
+      );
+    } catch (err) {
+      console.error("Failed to mark as returned", err);
+    }
+  };  
 
 
   useEffect(() => {
@@ -79,6 +96,14 @@ export default function LostItems({ user }) {
         </div>
       </div>
 
+      <input
+        type="text"
+        placeholder="Search lost items..."
+        className="input input-bordered input-sm w-full max-w-xs"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
 
       {/* Card container */}
       <div className="bg-base-100 rounded-xl shadow p-6">
@@ -89,13 +114,8 @@ export default function LostItems({ user }) {
           </h2>
         </div>
 
-        <input
-        type="text"
-        placeholder="Search lost items..."
-        className="input input-bordered input-sm w-full max-w-xs"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+
+      <br></br>
 
         {/* Items Grid */}
         <div className="grid gap-6">
@@ -126,26 +146,16 @@ export default function LostItems({ user }) {
                       </div>
                     </div>
 
-                    {/* Status + Options */}
-                    <div className="flex items-center gap-2">
-                      <span className={`badge ${getStatusColor(item.status)}`}>
-                        {getStatusText(item.status)}
-                      </span>
-                      <button className="btn btn-ghost btn-sm">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </button>
-                    </div>
+                   
                   </div>
 
                   {/* Footer Actions */}
                   <div className="flex justify-between items-center mt-4">
                     <p className="text-sm text-gray-500">...</p>
                     <div className="flex gap-2">
-                      <button className="btn btn-sm btn-outline">Edit</button>
-                      <button className="btn btn-sm btn-outline">
-                        View Details
-                      </button>
-                      {/* Optional "mark retrieved" can be based on logic */}
+                      <Link to={`/lost/edit/${item._id}`} className="btn btn-sm btn-outline mt-2">
+                        Edit
+                      </Link>
                     </div>
                   </div>
                 </div>
