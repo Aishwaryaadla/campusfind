@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "Do I need to create an account to use the platform?",
     answer:
-      "You can browse items without an account, but to report an item or contact someone, you need to sign up or log in.",
+      "You can browse items without an account, but to contact someone, you need to sign up or log in.",
   },
   {
     question: "Can I edit or delete my reported item?",
