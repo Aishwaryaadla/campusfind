@@ -7,16 +7,15 @@ import {
   MoreHorizontal,
 } from 'lucide-react';
 
-export default function FoundItems() {
+export default function FoundItems({ user }) {
   const [foundItems, setFoundItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-
-  const user = JSON.parse(localStorage.getItem('user')); // Ensure 'user' has rollNo
 
   useEffect(() => {
     const fetchFoundItems = async () => {
       try {
-        const res = await axios.get(`/api/found/user/${user.rollNo}`);
+        const res = await axios.get(`/api/founditems/user/${user.rollNo}`);
         if (res.data.success) {
           setFoundItems(res.data.data);
         }
@@ -74,6 +73,7 @@ export default function FoundItems() {
         </div>
       </div>
 
+
       {/* Card Container */}
       <div className="bg-base-100 rounded-xl shadow p-6">
         {/* Card Header */}
@@ -82,6 +82,14 @@ export default function FoundItems() {
             Found Items ({filteredItems.length})
           </h2>
         </div>
+
+        <input
+          type="text"
+          placeholder="Search found items..."
+          className="input input-bordered input-sm w-full max-w-xs"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
         {/* Items Grid */}
         <div className="grid gap-6">

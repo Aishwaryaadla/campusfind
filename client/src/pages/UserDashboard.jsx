@@ -67,17 +67,17 @@ export default function UserDashboard() {
   const renderContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <DashboardOverview />;
+        return <DashboardOverview user={user} />;
       case 'lost-items':
-        return <LostItems />;
+        return <LostItems user={user} />;
       case 'found-items':
-        return <FoundItems />;
+        return <FoundItems user={user} />;
       case 'profile':
-        return <ProfileSettings />;
+        return <ProfileSettings user={user} />;
       default:
-        return <DashboardOverview />;
+        return <DashboardOverview user={user} />;
     }
-  };
+  };  
 
   const getInitials = (name) => {
     return name

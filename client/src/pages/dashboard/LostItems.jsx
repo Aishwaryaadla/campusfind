@@ -7,22 +7,20 @@ import {
   MoreHorizontal,
 } from 'lucide-react';
 
-export default function LostItems() {
+export default function LostItems({ user }) {
   const [lostItems, setLostItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(localStorage.getItem('user')); // Ensure 'user' has rollNo
 
   useEffect(() => {
     const fetchUserLostItems = async () => {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      const rollNo = storedUser?.rollNo;
+      const rollNo = user?.rollNo;    
   
       if (!rollNo) return;
   
       try {
-        const res = await axios.get(`http://localhost:5000/api/lostitems/user/${rollNo}`);
+        const res = await axios.get(`http://localhost:5000/api/lostitems/user/${user.rollNo}`);
         setLostItems(res.data.data); // or your state key
         setLoading(false); 
       } catch (err) {
@@ -32,7 +30,7 @@ export default function LostItems() {
     };
   
     fetchUserLostItems();
-  }, []);
+  }, [user]);
   
   const filteredItems = lostItems.filter(
     (item) =>
@@ -80,6 +78,7 @@ export default function LostItems() {
         </div>
       </div>
 
+
       {/* Card container */}
       <div className="bg-base-100 rounded-xl shadow p-6">
         {/* Card Header */}
@@ -88,6 +87,14 @@ export default function LostItems() {
             Lost Items ({filteredItems.length})
           </h2>
         </div>
+
+        <input
+        type="text"
+        placeholder="Search lost items..."
+        className="input input-bordered input-sm w-full max-w-xs"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
 
         {/* Items Grid */}
         <div className="grid gap-6">
