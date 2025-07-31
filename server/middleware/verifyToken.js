@@ -1,21 +1,18 @@
-import jwt from 'jsonwebtoken';
+  import jwt from 'jsonwebtoken';
 
-export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const verifyToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Unauthorized - No token' });
-  }
+    if (!token) return res.status(401).json({ message: 'No token provided' });
 
-  const token = authHeader.split(' ')[1];
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded; // contains .id
+      next();
+    } catch (err) {
+      res.status(403).json({ message: 'Invalid token' });
+    }
+  };
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Now you can access req.user._id in your route
-    next();
-  } catch (err) {
-    res.status(401).json({ message: 'Unauthorized - Invalid token' });
-  }
-};
-
-export default verifyToken;
+  export default verifyToken;

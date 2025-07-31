@@ -12,6 +12,7 @@ import authRoutes from './routes/auth.js';
 import adminRoute from './routes/admin.js';
 import { fileURLToPath } from 'url';
 import commentRoutes from './routes/comments.js';
+import userRoutes from './routes/users.js';
 
 
 const app = express();
@@ -49,6 +50,8 @@ app.use("/api/founditems",founditemsroute);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoute);
 app.use('/api/comments', commentRoutes);
+app.use('/api/users', userRoutes);
+
 
 // app.listen(PORT, () => {
 //     connectDB();

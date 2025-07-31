@@ -47,7 +47,8 @@ const LoginPage = () => {
   
       if (res.ok) {
         // alert(data.message || "Login Successful");
-        localStorage.setItem("user", JSON.stringify(data.user  || { role: "admin" }));
+        localStorage.setItem("token", data.token); // ⬅️ Save JWT token
+        localStorage.setItem("user", JSON.stringify(data.user || { role: "admin" }));
         setFormData({
           rollNo: "",
           password: "",

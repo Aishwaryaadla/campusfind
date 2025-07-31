@@ -15,24 +15,25 @@ export default function LostItems() {
   const user = JSON.parse(localStorage.getItem('user')); // Ensure 'user' has rollNo
 
   useEffect(() => {
-    const fetchLostItems = async () => {
+    const fetchUserLostItems = async () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const rollNo = storedUser?.rollNo;
+  
+      if (!rollNo) return;
+  
       try {
-        const res = await axios.get(`/api/lost/user/${user.rollNo}`);
-        if (res.data.success) {
-          setLostItems(res.data.data); // your backend returns { data: items }
-        }
+        const res = await axios.get(`http://localhost:5000/api/lostitems/user/${rollNo}`);
+        setLostItems(res.data.data); // or your state key
+        setLoading(false); 
       } catch (err) {
-        console.error('Error fetching lost items:', err);
-      } finally {
-        setLoading(false);
+        console.error("Failed to fetch user-specific lost items", err);
+        setLoading(false); 
       }
     };
-
-    if (user?.rollNo) {
-      fetchLostItems();
-    }
-  }, [user?.rollNo]);
-
+  
+    fetchUserLostItems();
+  }, []);
+  
   const filteredItems = lostItems.filter(
     (item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

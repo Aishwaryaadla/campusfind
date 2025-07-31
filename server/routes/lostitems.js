@@ -5,7 +5,8 @@ import {
     updateItem,
     deleteItem,
     getItemById,
-    getLostItemsByUser
+    getLostItemsByUser,
+    markItemReturned
 } from '../controllers/lostItemController.js';
 
 import upload from '../middleware/upload.js';
@@ -18,5 +19,6 @@ router.post('/', upload.single('image'), addItem);
 router.put('/:id', updateItem);
 router.delete('/:id', deleteItem);
 router.get('/user/:rollNo', getLostItemsByUser);
+router.put('/return/:id', markItemReturned); 
 
 export default router;

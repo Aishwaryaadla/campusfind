@@ -23,6 +23,11 @@ const lostSchema = new mongoose.Schema({
     },
     location: { type: String, required: true }, 
     rollNo: { type: String, required: true },
+    status: {
+        type: String,
+        default: 'Active',
+        enum: ['Active', 'Returned']
+      }      
 }, {
     timestamps : true
 });

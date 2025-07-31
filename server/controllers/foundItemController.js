@@ -93,4 +93,20 @@ export const getFoundItemsByUser = async (req, res) => {
       res.status(500).json({ success: false, message: 'Server error' });
     }
   };
+
+  export const markFoundItemReturned = async (req, res) => {
+    try {
+      const updated = await Founditem.findByIdAndUpdate(
+        req.params.id,
+        { status: 'Returned' },
+        { new: true }
+      );
+      if (!updated) {
+        return res.status(404).json({ message: "Item not found" });
+      }
+      res.status(200).json({ success: true, data: updated });
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+  };
   

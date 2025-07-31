@@ -7,6 +7,59 @@ const AdminDashboard = () => {
   const [lostItems, setLostItems] = useState([]);
   const [foundItems, setFoundItems] = useState([]);
 
+  const token = localStorage.getItem('token');
+
+const handleDeleteLost = async (id) => {
+  try {
+    await fetch(`http://localhost:4000/api/lostitems/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    setLostItems((prev) => prev.filter(item => item._id !== id));
+  } catch (error) {
+    console.error("Delete lost item failed", error);
+  }
+};
+
+const handleMarkReturnedLost = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:4000/api/lostitems/return/${id}`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const { data } = await res.json();
+    setLostItems(prev => prev.map(i => i._id === id ? data : i));
+  } catch (error) {
+    console.error("Return lost item failed", error);
+  }
+};
+
+const handleDeleteFound = async (id) => {
+  try {
+    await fetch(`http://localhost:4000/api/founditems/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    setFoundItems((prev) => prev.filter(item => item._id !== id));
+  } catch (error) {
+    console.error("Delete found item failed", error);
+  }
+};
+
+const handleMarkReturnedFound = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:4000/api/founditems/return/${id}`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const { data } = await res.json();
+    setFoundItems(prev => prev.map(i => i._id === id ? data : i));
+  } catch (error) {
+    console.error("Return found item failed", error);
+  }
+};
+
+
   useEffect(() => {
     fetchLostItems();
     fetchFoundItems();
@@ -85,8 +138,8 @@ const AdminDashboard = () => {
                 <td>{item.location}</td>
                 <td>{item.reportedBy?.rollNo}</td>
                 <td>
-                  <button className="btn btn-xs btn-error mr-2">Delete</button>
-                  <button className="btn btn-xs btn-success">Mark Returned</button>
+                  <button className="btn btn-xs btn-error mr-2" onClick={() => handleDeleteLost(item._id)}>Delete</button>
+                  <button className="btn btn-xs btn-success" onClick={() => handleMarkReturnedLost(item._id)}>Mark Returned</button>
                 </td>
               </tr>
             ))}
@@ -111,8 +164,8 @@ const AdminDashboard = () => {
                 <td>{item.location}</td>
                 <td>{item.reportedBy?.rollNo}</td>
                 <td>
-                  <button className="btn btn-xs btn-error mr-2">Delete</button>
-                  <button className="btn btn-xs btn-success">Mark Returned</button>
+                  <button className="btn btn-xs btn-error mr-2" onClick={() => handleDeleteFound(item._id)}>Delete</button>
+                  <button className="btn btn-xs btn-success" onClick={() => handleMarkReturnedFound(item._id)}>Mark Returned</button>
                 </td>
               </tr>
             ))}

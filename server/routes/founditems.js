@@ -5,7 +5,8 @@ import {
     updateFoundItem,
     deleteFoundItem,
     getItemById,
-    getFoundItemsByUser
+    getFoundItemsByUser,
+    markFoundItemReturned
 } from '../controllers/foundItemController.js';
 
 import upload from '../middleware/upload.js';
@@ -19,5 +20,6 @@ router.post('/', upload.single('image'), addFoundItem);
 router.put('/:id', updateFoundItem);
 router.delete('/:id', deleteFoundItem);
 router.get('/:id', getItemById);
+router.put('/return/:id', markFoundItemReturned); 
 
 export default router;
