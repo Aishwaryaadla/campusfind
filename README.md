@@ -32,7 +32,7 @@ This platform is designed for:
 
 ## Screenshots
 
-To view screenshots go to <a href="https://github.com/prathamesh-a/graphical-password-authentication/blob/main/SCREENSHOTS.md">SCREENSHOTS</a>.
+To view screenshots go to <a href="https://github.com/Aishwaryaadla/campusfind/blob/main/SCREENSHOTS.md">SCREENSHOTS</a>.
 
 ## Installation
 To install this project, follow these steps:<br>
