@@ -32,7 +32,6 @@ This platform is designed for:
 
 ## Screenshots
 
-
-
+To view screenshots go to <a href="https://github.com/prathamesh-a/graphical-password-authentication/blob/main/SCREENSHOTS.md">SCREENSHOTS</a>.
 
 
