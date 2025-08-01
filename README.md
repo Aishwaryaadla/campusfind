@@ -65,3 +65,6 @@ npm install
 npm run dev
 ```
 
+## License
+
+This project is licensed under the <a href="https://github.com/Aishwaryaadla/campusfind/blob/main/LICENSE">MIT License</a>.
