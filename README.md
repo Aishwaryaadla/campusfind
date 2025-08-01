@@ -34,4 +34,34 @@ This platform is designed for:
 
 To view screenshots go to <a href="https://github.com/prathamesh-a/graphical-password-authentication/blob/main/SCREENSHOTS.md">SCREENSHOTS</a>.
 
+## Installation
+To install this project, follow these steps:<br>
+
+<p>1. Clone the repository to your local machine.</p>
+
+```bash
+git clone https://github.com/Aishwaryaadla/campusfind.git
+```
+
+<p>2. Navigate to the root folder of the project.</p>
+
+```bash
+cd campusfind
+```
+
+<p>3. Setup backend</p>
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+<p>4. Setup Frontend</p>
+
+```bash
+cd client
+npm install
+npm run dev
+```
 
